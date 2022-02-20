@@ -15,6 +15,13 @@ def detect_document(path):
     image = vision.Image(content=content)
 
     response = client.document_text_detection(image=image)
+    response1 = client.image_properties(image=image)
+    props = response1.image_properties_annotation
+    frac = {}
+    for color in props.dominant_colors.colors:
+        frac[color.pixel_fraction] = [color.color.red,color.color.green,color.color.blue]
+    col = max(frac.keys())
+
     
 
     paragraph_data = {}
@@ -44,6 +51,7 @@ def detect_document(path):
                 
                 paragraph_data[count] = {"confidence": paragraph.confidence, "Bounding": box, "Words": \
                     words}
+    paragraph_data["color"] = frac[col]
         
                             
     if response.error.message:
