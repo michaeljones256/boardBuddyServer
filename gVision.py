@@ -32,8 +32,8 @@ def translate_text(target, text):
    # print(u"Detected source language: {}".format(result["detectedSourceLanguage"]))
     return (result["translatedText"])
 
-def imgPut(vertices, color):
-    img = cv2.imread("IMG_6361.jpg")
+def imgPut(vertices, color, file):
+    img = cv2.imread(file)
     xs = [i[0] for i in vertices]
     minX = min(xs)
     maxX = max(xs)
@@ -44,8 +44,8 @@ def imgPut(vertices, color):
     blur = cv2.blur(img,(30,30))
     cv2.imwrite("IMG_6361.jpg",img)
 
-def imgSet(txt, vertices):
-    img = cv2.imread('IMG_6361.jpg')
+def imgSet(txt, vertices,file):
+    img = cv2.imread(file)
     xs = [i[0] for i in vertices]
     minX = min(xs)
     maxX = max(xs)
@@ -54,8 +54,8 @@ def imgSet(txt, vertices):
     maxY = max(ys)
     fontpath = "SIMSUN.ttf"
     font = ImageFont.truetype(fontpath, 25)
-    img_pil = Image.open("IMG_6361.jpg")
+    img_pil = Image.open(file)
     draw = ImageDraw.Draw(img_pil)
     draw.text((minX,((minY+maxY)/2)), txt, font = font, fill = (0,0,0,0))
-    img_pil.save("IMG_6361.jpg")
+    img_pil.save(file)
 
